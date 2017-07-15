@@ -21,11 +21,7 @@ MouseArea {
     verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
 
     anchors {
-      top: parent.top
-      bottom: parent.bottom
-      topMargin: root.height/5
-      bottomMargin: root.height/5
-      horizontalCenter: parent.horizontalCenter
+      fill: parent
     }
 
     Grid {
@@ -38,7 +34,6 @@ MouseArea {
 
       Repeater {
         id: repeater
-        model: apps ? apps : []
         delegate: AppDelegate {
           id: appDelegate
           width: cellSize; height: width
