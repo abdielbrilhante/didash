@@ -23,6 +23,8 @@ Window {
       hide();
     else
       showFullScreen();
+
+    searchField.text = '';
   }
 
   property var apps: []
