@@ -19,7 +19,8 @@ MouseArea {
   }
 
   onClicked: {
-    kRun.openUrl(app.entryPath)
+    kRun.openUrl(app.entryPath);
+    rootWindow.toggle();
   }
 
   Column {
