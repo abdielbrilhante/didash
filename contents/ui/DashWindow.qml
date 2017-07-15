@@ -11,6 +11,8 @@ Window {
 
   width: 1000; height: 600
 
+  property string searching: searchField.text
+
   visible: true
   color: Qt.rgba(0.0, 0.0, 0.0, 1.0)
   flags: Qt.FramelessWindowHint
@@ -59,10 +61,39 @@ Window {
     samples: 81
   }
 
+  onSearchingChanged: {
+    if (searching) {
+      appGrid.model = filter(apps, searchField.text.toLowerCase());
+    }
+    else {
+      appGrid.model = sorted(apps);
+    }
+  }
+
+  function filter(arr, subs) {
+    return arr.filter(function compare(str) {
+      var app = appsSource.data[str];
+      return app.name.toLowerCase().includes(subs);
+    });
+  }
+
+  function sorted(arr) {
+    return arr.sort(function compare(a, b) {
+      return a.localeCompare(b);
+    });
+  }
+
   Column {
     anchors {
       fill: parent
       margins: 80
+    }
+
+    TextField {
+      id: searchField
+      width: 128; height: 48
+      anchors.horizontalCenter: parent.horizontalCenter
+      focus: true
     }
 
     AppGrid {
@@ -73,14 +104,7 @@ Window {
         left: parent.left
         right: parent.right
       }
-      Rectangle {
-        id: rect
-        anchors.fill: parent
-        opacity: 0.5
-      }
-      model: apps ? apps.sort(function compare(a, b) {
-        return a.localeCompare(b);
-      }) : []
+      model: apps ? sorted(apps) : []
     }
   }
 }
