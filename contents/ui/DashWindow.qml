@@ -71,6 +71,10 @@ Window {
     }
   }
 
+  Keys.onEscapePressed: {
+    toggle();
+  }
+
   function filter(arr, subs) {
     return arr.filter(function compare(str) {
       var app = appsSource.data[str];
@@ -87,7 +91,10 @@ Window {
   Column {
     anchors {
       fill: parent
-      margins: 80
+      topMargin: rootWindow.height/5
+      bottomMargin: rootWindow.height/5
+      leftMargin: rootWindow.width/5
+      rightMargin: rootWindow.width/5
     }
 
     TextField {
@@ -107,13 +114,17 @@ Window {
           border.width: 1
         }
       }
+
+      Keys.onEscapePressed: {
+        rootWindow.toggle();
+      }
     }
 
     AppGrid {
       id: appGrid
       anchors {
         top: searchField.bottom
-        topMargin: 48
+        topMargin: 72
         bottom: parent.bottom
         left: parent.left
         right: parent.right
