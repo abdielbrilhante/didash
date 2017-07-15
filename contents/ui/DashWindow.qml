@@ -10,7 +10,7 @@ Window {
 
   width: 1000; height: 600
 
-  visible: false
+  visible: true
   color: Qt.rgba(0.0, 0.0, 0.0, 1.0)
   flags: Qt.FramelessWindowHint
 
@@ -19,6 +19,29 @@ Window {
       hide();
     else
       showFullScreen();
+  }
+
+  property var apps: []
+
+  PlasmaCore.DataSource {
+    id: appsSource
+    engine: 'apps'
+
+    onSourceAdded: {
+      connectSource(source);
+    }
+
+    onSourceRemoved: {
+      disconnectSource(source);
+    }
+  }
+
+  Component.onCompleted: {
+    for (var i in appsSource.sources) {
+      appsSource.sourceAdded(appsSource.sources[i]);
+    }
+
+    apps = appsSource.sources;
   }
 
   Image {
@@ -38,5 +61,8 @@ Window {
   AppGrid {
     id: appGrid
     anchors.fill: parent
+    model: apps ? apps.sort(function compare(a, b) {
+      return a.localeCompare(b);
+    }) : []
   }
 }

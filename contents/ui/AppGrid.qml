@@ -8,30 +8,8 @@ MouseArea {
   id: root
 
   focus: true
-  property var apps: []
 
-  PlasmaCore.DataSource {
-    id: appsSource
-    engine: 'apps'
-
-    onSourceAdded: {
-      connectSource(source);
-    }
-
-    onSourceRemoved: {
-      disconnectSource(source);
-    }
-  }
-
-  Component.onCompleted: {
-    for (var i in appsSource.sources) {
-      appsSource.sourceAdded(appsSource.sources[i]);
-    }
-
-    apps = appsSource.sources.sort(function compare(a, b) {
-      return a.localeCompare(b);
-    });
-  }
+  property alias model: repeater.model
 
   property int cellSize: units.iconSizes.huge * 1.5
 
@@ -55,7 +33,7 @@ MouseArea {
 
       x: (scrollArea.width - grid.width)/2
 
-      columns: Math.floor(((root.width/1.5) + spacing)/(cellSize + spacing))
+      columns: Math.floor(((root.width) + spacing)/(cellSize + spacing))
       spacing: 24
 
       Repeater {
