@@ -12,7 +12,6 @@ MouseArea {
 
   PlasmaExtras.ScrollArea {
     id: scrollArea
-    width: grid.width
 
     horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
     verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
@@ -24,8 +23,10 @@ MouseArea {
     Grid {
       id: grid
 
+      width: columns*(cellSize+spacing) - spacing
       columns: Math.floor(((root.width) + spacing)/(cellSize + spacing))
       spacing: 24
+      x: (scrollArea.width - width)/2
 
       Repeater {
         id: repeater
