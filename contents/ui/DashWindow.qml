@@ -1,6 +1,7 @@
 import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
@@ -66,7 +67,7 @@ Window {
       appGrid.model = sorted(filter(apps, searchField.text.toLowerCase()));
     }
     else {
-      appGrid.model = apps;
+      appGrid.model = sorted(apps);
     }
   }
 
@@ -91,20 +92,33 @@ Window {
 
     TextField {
       id: searchField
-      width: 128; height: 48
       anchors.horizontalCenter: parent.horizontalCenter
       focus: true
+      placeholderText: "Search..."
+      font.pointSize: 11
+      style: TextFieldStyle {
+        textColor: '#333'
+        placeholderTextColor: '#444'
+        background: Rectangle {
+          radius: 4
+          implicitWidth: 240
+          implicitHeight: 32
+          border.color: "#888"
+          border.width: 1
+        }
+      }
     }
 
     AppGrid {
       id: appGrid
       anchors {
         top: searchField.bottom
+        topMargin: 48
         bottom: parent.bottom
         left: parent.left
         right: parent.right
       }
-      model: apps ? sorted(apps) : []
+      model: apps ? apps : []
     }
   }
 }
