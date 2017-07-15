@@ -5,7 +5,6 @@ import QtQuick.Controls.Styles 1.4
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
-import QtGraphicalEffects 1.0
 
 Window {
   id: rootWindow
@@ -50,18 +49,9 @@ Window {
     apps = sorted(appsSource.sources);
   }
 
-  Image {
-    id: wp
-    source: '/home/diello/.local/share/wallpapers/montana.jpg'
+  Background {
+    id: background
     anchors.fill: parent
-    visible: false
-  }
-
-  GaussianBlur {
-    id: blur
-    source: wp
-    anchors.fill: wp
-    samples: 81
   }
 
   onSearchingChanged: {
