@@ -4,8 +4,11 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
-Item {
+MouseArea {
   id: root
+
+  focus: true
+  property var apps: []
 
   PlasmaCore.DataSource {
     id: appsSource
@@ -24,6 +27,10 @@ Item {
     for (var i in appsSource.sources) {
       appsSource.sourceAdded(appsSource.sources[i]);
     }
+
+    apps = appsSource.sources.sort(function compare(a, b) {
+      return a.localeCompare(b);
+    });
   }
 
   property int cellSize: units.iconSizes.huge * 1.5
@@ -43,16 +50,12 @@ Item {
 
       Repeater {
         id: repeater
-        model: appsSource.sources
-        delegate: Item {
+        model: apps ? apps : []
+        delegate: AppDelegate {
+          id: appDelegate
           width: cellSize; height: width
-          visible: appDelegate.visible
-
-          AppDelegate {
-            id: appDelegate
-            width: cellSize
-            app: appsSource.data[model.modelData]
-          }
+          app: appsSource.data[model.modelData]
+          visible: app.isApp && app.display && app.iconName
         }
       }
     }
