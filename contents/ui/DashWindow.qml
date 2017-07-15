@@ -44,7 +44,7 @@ Window {
       appsSource.sourceAdded(appsSource.sources[i]);
     }
 
-    apps = appsSource.sources;
+    apps = sorted(appsSource.sources);
   }
 
   Image {
@@ -63,10 +63,10 @@ Window {
 
   onSearchingChanged: {
     if (searching) {
-      appGrid.model = filter(apps, searchField.text.toLowerCase());
+      appGrid.model = sorted(filter(apps, searchField.text.toLowerCase()));
     }
     else {
-      appGrid.model = sorted(apps);
+      appGrid.model = apps;
     }
   }
 
