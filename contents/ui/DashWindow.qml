@@ -17,7 +17,12 @@ Window {
     if (visible)
       hide();
     else
-      show();
+      showFullScreen();
+  }
+
+  Image {
+    source: '/home/diello/.local/share/wallpapers/montana.jpg'
+    anchors.fill: parent
   }
 
   AppGrid {
