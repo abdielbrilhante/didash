@@ -2,6 +2,7 @@ import QtQuick 2.5
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.extras 2.0 as PlasmaExtras
 
 Item {
   id: root
@@ -27,28 +28,31 @@ Item {
 
   property int cellSize: units.iconSizes.huge * 1.5
 
-  Grid {
-    id: grid
+  PlasmaExtras.ScrollArea {
+    id: scrollArea
+    width: root.width
+    height: root.height
 
-    // TODO: Margens e outras âncoras
-    anchors {
-      horizontalCenter: parent.horizontalCenter
-    }
+    Grid {
+      id: grid
 
-    columns: Math.floor((parent.width + spacing)/(cellSize + spacing))
-    spacing: 24
+      x: (scrollArea.width - grid.width)/2
 
-    Repeater {
-      id: repeater
-      model: appsSource.sources
-      delegate: Item {
-        width: cellSize; height: width
-        visible: appDelegate.visible
+      columns: Math.floor((root.width + spacing)/(cellSize + spacing))
+      spacing: 24
 
-        AppDelegate {
-          id: appDelegate
-          width: cellSize
-          app: appsSource.data[model.modelData]
+      Repeater {
+        id: repeater
+        model: appsSource.sources
+        delegate: Item {
+          width: cellSize; height: width
+          visible: appDelegate.visible
+
+          AppDelegate {
+            id: appDelegate
+            width: cellSize
+            app: appsSource.data[model.modelData]
+          }
         }
       }
     }
