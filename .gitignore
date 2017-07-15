@@ -19,6 +19,7 @@
 *.qbs.user
 *.qbs.user.*
 *.moc
+*.qmlc
 moc_*.cpp
 moc_*.h
 qrc_*.cpp
@@ -36,4 +37,3 @@ Makefile*
 
 # QtCtreator CMake
 CMakeLists.txt.user*
-
