@@ -7,14 +7,21 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 Window {
   id: root
 
-  width: 500; height: width
+  width: 1000; height: 600
 
   visible: true
+  color: Qt.rgba(0.0, 0.0, 0.0, 1.0)
+  flags: Qt.FramelessWindowHint
 
   function toggle() {
     if (visible)
       hide();
     else
       show();
+  }
+
+  AppGrid {
+    id: appGrid
+    anchors.fill: parent
   }
 }
