@@ -39,10 +39,14 @@ MouseArea {
     id: scrollArea
     width: grid.width + 24
 
+    horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+    verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+
     anchors {
       top: parent.top
       bottom: parent.bottom
-      topMargin: 60
+      topMargin: root.height/5
+      bottomMargin: root.height/5
       horizontalCenter: parent.horizontalCenter
     }
 
