@@ -37,15 +37,21 @@ MouseArea {
 
   PlasmaExtras.ScrollArea {
     id: scrollArea
-    width: root.width
-    height: root.height
+    width: grid.width + 24
+
+    anchors {
+      top: parent.top
+      bottom: parent.bottom
+      topMargin: 60
+      horizontalCenter: parent.horizontalCenter
+    }
 
     Grid {
       id: grid
 
       x: (scrollArea.width - grid.width)/2
 
-      columns: Math.floor((root.width + spacing)/(cellSize + spacing))
+      columns: Math.floor(((root.width/1.5) + spacing)/(cellSize + spacing))
       spacing: 24
 
       Repeater {
