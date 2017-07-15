@@ -9,10 +9,38 @@ MouseArea {
 
   property QtObject window: null
 
-  width: 128; height: parent.height
+  Layout.fillHeight: true
+  Layout.preferredWidth: label.width + 32
+  Layout.minimumWidth: Layout.preferredWidth
+  Layout.maximumWidth: Layout.preferredWidth
+
+  property bool hovered: false
+  hoverEnabled: true
+  onEntered: hovered = true;
+  onExited: hovered = false;
+
   Rectangle {
-    id: rect
     anchors.fill: parent
+    color: theme.textColor
+    visible: hovered
+  }
+
+  PlasmaComponents.Label {
+    id: label
+    text: 'Apps'
+    anchors.centerIn: parent
+    color: hovered ? theme.backgroundColor : theme.textColor
+  }
+
+  Rectangle {
+    width: 1
+    height: 16
+    color: theme.textColor
+    visible: !hovered
+    anchors {
+      verticalCenter: parent.verticalCenter
+      left: parent.right
+    }
   }
 
   onClicked: {
