@@ -25,12 +25,16 @@ Item {
     }
   }
 
-  property int cellSize: units.iconSizes.huge/0.8
+  property int cellSize: units.iconSizes.huge * 1.5
 
   Grid {
     id: grid
 
-    anchors.centerIn: parent
+    // TODO: Margens e outras âncoras
+    anchors {
+      horizontalCenter: parent.horizontalCenter
+    }
+
     columns: Math.floor((parent.width + spacing)/(cellSize + spacing))
     spacing: 24
 
@@ -39,7 +43,11 @@ Item {
       model: appsSource.sources
       delegate: Item {
         width: cellSize; height: width
+        visible: appDelegate.visible
+
         AppDelegate {
+          id: appDelegate
+          width: cellSize
           app: appsSource.data[model.modelData]
         }
       }

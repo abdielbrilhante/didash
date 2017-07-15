@@ -8,15 +8,23 @@ Item {
 
   property var app
 
-  Text {
-    text: 'hello'
+  onAppChanged: {
+    if (app['isApp'] && app['display']) {
+      visible = true;
+    }
+    else {
+      visible = false;
+    }
   }
 
   Column {
+    anchors.horizontalCenter: root.horizontalCenter
+    spacing: 8
     PlasmaCore.IconItem {
       id: icon
       width: units.iconSizes.huge; height: width
       source: app ? app['iconName'] : ''
+      anchors.horizontalCenter: parent.horizontalCenter
     }
 
     PlasmaComponents.Label {
@@ -26,7 +34,7 @@ Item {
       elide: Text.ElideRight
       maximumLineCount: 1
       color: theme.textColor
-      anchors.horizontalCenter: root.horizontalCenter
+      horizontalAlignment: Text.AlignHCenter
     }
   }
 }
