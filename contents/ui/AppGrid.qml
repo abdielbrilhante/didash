@@ -7,10 +7,7 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 MouseArea {
   id: root
 
-  focus: true
-
   property alias model: repeater.model
-
   property int cellSize: units.iconSizes.huge * 1.5
 
   PlasmaExtras.ScrollArea {
