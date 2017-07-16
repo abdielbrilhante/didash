@@ -10,6 +10,7 @@ PlasmaCore.Dialog {
   id: rootWindow
 
   property string searching: searchField.text
+  x: 0
 
   visible: false
   backgroundHints: PlasmaCore.Types.NoBackground
@@ -18,7 +19,7 @@ PlasmaCore.Dialog {
     if (visible)
       hide();
     else
-      showFullScreen();
+      show();
 
     searchField.text = '';
   }
@@ -52,8 +53,12 @@ PlasmaCore.Dialog {
   }
 
   Item {
-    width: Screen.desktopAvailableWidth
-    height: Screen.desktopAvailableHeight
+    id: mainItem
+
+    property QtObject dimensions: menuDimensions
+
+    width: dimensions.width
+    height: dimensions.height
 
     PlasmaCore.DataSource {
       id: appsSource
@@ -76,34 +81,81 @@ PlasmaCore.Dialog {
       apps = sorted(appsSource.sources);
     }
 
+    Rectangle {
+      anchors.fill: parent
+      color: theme.backgroundColor
+    }
+
     Background {
       id: background
       anchors.fill: parent
+      visible: false
+    }
+
+    QtObject {
+      id: menuDimensions
+      property string id: 'menu'
+      property int searchBoxSpacing: topMargin
+      property int topMargin: 16
+      property int bottomMargin: 0
+      property int leftMargin: 16
+      property int rightMargin: 16
+      property int width: 300
+      property int height: Screen.desktopAvailableHeight
+      property int cellSize: width - leftMargin - rightMargin
+      property int cellHeight: units.iconSizes.smallMedium * 1.5
+      property int appSpacing: 4
+    }
+
+    QtObject {
+      id: dashDimensions
+      property string id: 'dash'
+      property int searchBoxSpacing: 68
+      property int topMargin: mainItem.height/5
+      property int bottomMargin: mainItem.height/5
+      property int leftMargin: mainItem.width/5
+      property int rightMargin: mainItem.width/5
+      property int width: Screen.desktopAvailableWidth
+      property int height: Screen.desktopAvailableHeight
+      property int cellSize: units.iconSizes.huge * 1.5
+      property int cellHeight: units.iconSizes.huge * 1.5
+      property int appSpacing: 24
     }
 
     Item {
+      id: uiElements
       anchors {
         fill: parent
-        topMargin: parent.height/5
-        bottomMargin: parent.height/5
-        rightMargin: parent.width/5
-        leftMargin: parent.width/5
+        topMargin: mainItem.dimensions.topMargin
+        bottomMargin: mainItem.dimensions.bottomMargin
+        rightMargin: mainItem.dimensions.rightMargin
+        leftMargin: mainItem.dimensions.leftMargin
       }
+
       TextField {
         id: searchField
-        anchors.horizontalCenter: parent.horizontalCenter
+
+        property bool isDash: mainItem.dimensions.id == 'dash'
+
+        anchors {
+          horizontalCenter: parent.horizontalCenter
+        }
+
+        width: isDash ? 240 : uiElements.width
+
         focus: true
-        placeholderText: "Search..."
+        placeholderText: 'Search...'
         font.pointSize: 11
         style: TextFieldStyle {
-          textColor: '#333'
-          placeholderTextColor: '#444'
+          textColor: '#eee'
+          placeholderTextColor: '#ddd'
           background: Rectangle {
-            radius: 4
-            implicitWidth: 240
-            implicitHeight: 32
+            radius: 0
+            implicitWidth: searchField.width
+            implicitHeight: 36
             border.color: "#888"
             border.width: 1
+            opacity: 0.05
           }
         }
 
@@ -116,7 +168,7 @@ PlasmaCore.Dialog {
         id: appGrid
         anchors {
           top: searchField.bottom
-          topMargin: 72
+          topMargin: mainItem.dimensions.searchBoxSpacing
           bottom: parent.bottom
           left: parent.left
           right: parent.right

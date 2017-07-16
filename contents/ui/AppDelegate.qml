@@ -25,13 +25,13 @@ MouseArea {
 
   Loader {
     id: uiElements
-    sourceComponent: row
+    sourceComponent: isDash ? column : row
   }
 
   Component {
     id: column
     Column {
-      anchors.horizontalCenter: root.horizontalCenter
+      anchors.horizontalCenter: parent.horizontalCenter
       spacing: 4
       PlasmaCore.IconItem {
         width: units.iconSizes.huge; height: width
@@ -46,6 +46,7 @@ MouseArea {
         elide: Text.ElideRight
         maximumLineCount: 1
         color: theme.textColor
+        horizontalAlignment: Text.AlignHCenter
         font.bold: hovered
       }
     }
@@ -54,10 +55,11 @@ MouseArea {
   Component {
     id: row
     Row {
-      anchors.verticalCenter: root.verticalCenter
+      anchors.verticalCenter: parent.verticalCenter
       spacing: 8
       PlasmaCore.IconItem {
-        width: units.iconSizes.small; height: width
+        id: rowIcon
+        width: units.iconSizes.smallMedium; height: width
         source: app ? app.iconName : ''
         anchors.verticalCenter: parent.verticalCenter
         active: hovered
@@ -65,11 +67,10 @@ MouseArea {
 
       PlasmaComponents.Label {
         text: app ? app.name : ''
-        width: cellSize
+        width: cellSize - rowIcon.width - parent.spacing
         elide: Text.ElideRight
         maximumLineCount: 1
         color: theme.textColor
-        horizontalAlignment: Text.AlignHCenter
         font.bold: hovered
       }
     }

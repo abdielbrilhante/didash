@@ -8,7 +8,8 @@ MouseArea {
   id: root
 
   property alias model: repeater.model
-  property int cellSize: units.iconSizes.huge * 1.5
+  property int cellSize: mainItem.dimensions.cellSize
+  property bool isDash: mainItem.dimensions.id == 'dash'
 
   PlasmaExtras.ScrollArea {
     id: scrollArea
@@ -24,15 +25,15 @@ MouseArea {
       id: grid
 
       width: columns*(cellSize+spacing) - spacing
-      columns: Math.floor(((root.width) + spacing)/(cellSize + spacing))
-      spacing: 24
+      columns: isDash ? Math.floor(((root.width) + spacing)/(cellSize + spacing)) : 1
+      spacing: mainItem.dimensions.appSpacing
       x: (scrollArea.width - width)/2
 
       Repeater {
         id: repeater
         delegate: AppDelegate {
           id: appDelegate
-          width: cellSize; height: width
+          width: cellSize; height: mainItem.dimensions.cellHeight
           app: appsSource.data[model.modelData]
           visible: app.isApp && app.display && app.iconName
         }
