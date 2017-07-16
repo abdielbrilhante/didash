@@ -49,5 +49,8 @@ MouseArea {
 
   Component.onCompleted: {
     window = Qt.createQmlObject("DashWindow {}", root);
+    plasmoid.activated.connect(function() {
+      window.toggle()
+    });
   }
 }
