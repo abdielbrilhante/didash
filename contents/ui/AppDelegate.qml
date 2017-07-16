@@ -23,26 +23,55 @@ MouseArea {
     rootWindow.toggle();
   }
 
-  Column {
-    anchors.horizontalCenter: root.horizontalCenter
-    spacing: 8
-    PlasmaCore.IconItem {
-      id: icon
-      width: units.iconSizes.huge; height: width
-      source: app ? app.iconName : ''
-      anchors.horizontalCenter: parent.horizontalCenter
-      active: hovered
-    }
+  Loader {
+    id: uiElements
+    sourceComponent: row
+  }
 
-    PlasmaComponents.Label {
-      id: label
-      text: app ? app.name : ''
-      width: cellSize
-      elide: Text.ElideRight
-      maximumLineCount: 1
-      color: theme.textColor
-      horizontalAlignment: Text.AlignHCenter
-      font.bold: hovered
+  Component {
+    id: column
+    Column {
+      anchors.horizontalCenter: root.horizontalCenter
+      spacing: 4
+      PlasmaCore.IconItem {
+        width: units.iconSizes.huge; height: width
+        source: app ? app.iconName : ''
+        anchors.horizontalCenter: parent.horizontalCenter
+        active: hovered
+      }
+
+      PlasmaComponents.Label {
+        text: app ? app.name : ''
+        width: cellSize
+        elide: Text.ElideRight
+        maximumLineCount: 1
+        color: theme.textColor
+        font.bold: hovered
+      }
+    }
+  }
+
+  Component {
+    id: row
+    Row {
+      anchors.verticalCenter: root.verticalCenter
+      spacing: 8
+      PlasmaCore.IconItem {
+        width: units.iconSizes.small; height: width
+        source: app ? app.iconName : ''
+        anchors.verticalCenter: parent.verticalCenter
+        active: hovered
+      }
+
+      PlasmaComponents.Label {
+        text: app ? app.name : ''
+        width: cellSize
+        elide: Text.ElideRight
+        maximumLineCount: 1
+        color: theme.textColor
+        horizontalAlignment: Text.AlignHCenter
+        font.bold: hovered
+      }
     }
   }
 }
