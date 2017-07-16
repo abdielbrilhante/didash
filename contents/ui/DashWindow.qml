@@ -48,7 +48,7 @@ PlasmaCore.Dialog {
 
   function sorted(arr) {
     return arr.sort(function compare(a, b) {
-      return a.localeCompare(b);
+      return appsSource.data[a].name.localeCompare(appsSource.data[b].name);
     });
   }
 
