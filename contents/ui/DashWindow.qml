@@ -14,6 +14,7 @@ PlasmaCore.Dialog {
 
   visible: false
   backgroundHints: PlasmaCore.Types.NoBackground
+  hideOnWindowDeactivate: true
 
   function toggle() {
     if (visible)
@@ -42,7 +43,17 @@ PlasmaCore.Dialog {
   function filter(arr, subs) {
     return arr.filter(function compare(str) {
       var app = appsSource.data[str];
-      return app.name.toLowerCase().includes(subs);
+
+      if (app.name.toLowerCase().includes(subs)) return true;
+
+      for (var key in app.categories) {
+        var cat = app.categories[key];
+        if (cat.toLowerCase().includes(subs)) {
+          return true;
+        }
+      }
+
+      return false;
     });
   }
 
