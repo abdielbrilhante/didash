@@ -55,7 +55,7 @@ PlasmaCore.Dialog {
   Item {
     id: mainItem
 
-    property QtObject dimensions: menuDimensions
+    property QtObject dimensions: plasmoid.configuration.isDash ? dashDimensions : menuDimensions
 
     width: dimensions.width
     height: dimensions.height
