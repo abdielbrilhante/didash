@@ -13,7 +13,7 @@ PlasmaCore.Dialog {
   x: 0
 
   visible: false
-  backgroundHints: PlasmaCore.Types.NoBackground
+  // backgroundHints: PlasmaCore.Types.NoBackground
   hideOnWindowDeactivate: true
 
   function toggle() {
@@ -93,7 +93,7 @@ PlasmaCore.Dialog {
     }
 
     Rectangle {
-      anchors.fill: parent
+      // anchors.fill: parent
       color: theme.backgroundColor
     }
 
@@ -158,15 +158,15 @@ PlasmaCore.Dialog {
         placeholderText: 'Search...'
         font.pointSize: 11
         style: TextFieldStyle {
-          textColor: '#eee'
+          textColor: theme.textColor
           placeholderTextColor: '#ddd'
           background: Rectangle {
+            color: Qt.rgba(0.5, 0.5, 0.5, 0.03)
             radius: 0
             implicitWidth: searchField.width
             implicitHeight: 36
-            border.color: "#888"
+            border.color: Qt.rgba(0.5, 0.5, 0.5, 0.2)
             border.width: 1
-            opacity: 0.05
           }
         }
 
