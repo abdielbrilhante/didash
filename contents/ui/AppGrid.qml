@@ -24,6 +24,8 @@ MouseArea {
     Grid {
       id: grid
 
+      property int currentIndex: -1
+
       width: columns*(cellSize+spacing) - spacing
       columns: isDash ? Math.floor(((root.width) + spacing)/(cellSize + spacing)) : 1
       spacing: mainItem.dimensions.appSpacing
@@ -35,7 +37,7 @@ MouseArea {
           id: appDelegate
           width: cellSize; height: mainItem.dimensions.cellHeight
           app: appsSource.data[model.modelData]
-          visible: app.isApp && app.display && app.iconName
+          visible: app.isApp && app.display && app.iconName // TODO: filter in apps array
         }
       }
     }

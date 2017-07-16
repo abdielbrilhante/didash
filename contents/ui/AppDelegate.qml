@@ -8,11 +8,11 @@ MouseArea {
   id: root
 
   property var app
-  property bool hovered: false
+  property bool highlighted: grid.currentIndex === index
 
   hoverEnabled: true
-  onEntered: hovered = true;
-  onExited: hovered = false;
+  onEntered: grid.currentIndex = index;
+  onExited: grid.currentIndex = -1;
 
   Kio.KRun {
     id: kRun
@@ -37,7 +37,7 @@ MouseArea {
         width: units.iconSizes.huge; height: width
         source: app ? app.iconName : ''
         anchors.horizontalCenter: parent.horizontalCenter
-        active: hovered
+        active: highlighted
       }
 
       PlasmaComponents.Label {
@@ -47,7 +47,7 @@ MouseArea {
         maximumLineCount: 1
         color: theme.textColor
         horizontalAlignment: Text.AlignHCenter
-        font.bold: hovered
+        font.bold: highlighted
       }
     }
   }
@@ -62,7 +62,7 @@ MouseArea {
         width: units.iconSizes.smallMedium; height: width
         source: app ? app.iconName : ''
         anchors.verticalCenter: parent.verticalCenter
-        active: hovered
+        active: highlighted
       }
 
       PlasmaComponents.Label {
@@ -71,7 +71,7 @@ MouseArea {
         elide: Text.ElideRight
         maximumLineCount: 1
         color: theme.textColor
-        font.bold: hovered
+        font.bold: highlighted
       }
     }
   }
