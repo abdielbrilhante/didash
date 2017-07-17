@@ -19,7 +19,7 @@ Item {
     engine: 'executable'
 
     property string currentSource
-    property string currentPackage
+    property string currentPackage: 'Unavailable'
 
     onSourceAdded: {
       connectSource(source);
@@ -61,41 +61,24 @@ Item {
     }
   }
 
-  Column {
+  Item {
     anchors {
       top: name.bottom
       topMargin: 60
     }
 
-    spacing: 14
+    // single Text, width for dash, actions
     Text {
-      text: '<b>Name</b><br>' + app.name
-      color: theme.textColor
-      lineHeight: 1.25
-    }
-    Text {
-      width: details.width
-      text: '<b>Description</b><br>' + (app.comment ? app.comment : 'None')
-      color: theme.textColor
-      wrapMode: Text.WordWrap
-      lineHeight: 1.25
-    }
-    Text {
-      width: details.width
-      text: '<b>Categories</b><br>' + app.categories
-      color: theme.textColor
-      lineHeight: 1.25
-      wrapMode: Text.WordWrap
-    }
-    Text {
-      text: '<b>Display</b><br>' + (app.display ? 'Yes' : 'No')
-      color: theme.textColor
-      lineHeight: 1.25
-    }
+      property string dName: '<b>Name</b><br>' + app.name
+      property string dComment: '<b>Description</b><br>' + (app.comment ? app.comment : 'None')
+      property string dCat: '<b>Categories</b><br>' + app.categories
+      property string dDisplay: '<b>Display</b><br>' + (app.display ? 'Yes' : 'No')
+      property string dPackage: '<b>Package</b><br>' + pacmanSource.currentPackage
 
-    Text {
-      text: '<b>Package</b><br>' + (pacmanSource.currentSource ? pacmanSource.currentPackage : 'Not available')
+      width: details.width
+      text: dName + '<br><br>' + dComment + '<br><br>' + dCat + '<br><br>' + dDisplay + '<br><br>' + dPackage
       color: theme.textColor
+      wrapMode: Text.WordWrap
       lineHeight: 1.25
     }
   }
