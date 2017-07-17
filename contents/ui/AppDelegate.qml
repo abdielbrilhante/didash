@@ -5,20 +5,28 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.kio 1.0 as Kio
 
 MouseArea {
-  id: root
+  id: delegate
 
   property var app
-  property bool highlighted: grid.currentIndex === index
+  property bool highlighted: activeFocus || grid.currentIndex === index
 
   hoverEnabled: true
   onEntered: grid.currentIndex = index;
   onExited: grid.currentIndex = -1;
 
+  Keys.onTabPressed: {
+    root.setFocus(index + 1)
+  }
+
   Kio.KRun {
     id: kRun
   }
 
-  onClicked: {
+  Keys.onEnterPressed: openApp();
+
+  onClicked: openApp();
+
+  function openApp() {
     kRun.openUrl(app.entryPath);
     rootWindow.toggle();
   }

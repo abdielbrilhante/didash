@@ -11,6 +11,11 @@ MouseArea {
   property int cellSize: mainItem.dimensions.cellSize
   property bool isDash: mainItem.dimensions.id == 'dash'
 
+  function setFocus(index) {
+    if (index < 0 || index > grid.children.length) return;
+    grid.children[index].forceActiveFocus();
+  }
+
   PlasmaExtras.ScrollArea {
     id: scrollArea
 
@@ -37,7 +42,6 @@ MouseArea {
           id: appDelegate
           width: cellSize; height: mainItem.dimensions.cellHeight
           app: appsSource.data[model.modelData]
-          // visible: app.isApp && app.display && app.iconName // TODO: filter in apps array
         }
       }
     }

@@ -172,6 +172,10 @@ PlasmaCore.Dialog {
         Keys.onEscapePressed: {
           rootWindow.toggle();
         }
+
+        Keys.onDownPressed: {
+          appGrid.setFocus(0);
+        }
       }
 
       AppGrid {
