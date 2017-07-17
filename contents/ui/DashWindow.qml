@@ -36,10 +36,6 @@ PlasmaCore.Dialog {
     }
   }
 
-  Keys.onEscapePressed: {
-    toggle();
-  }
-
   function filter(arr, subs) {
     return arr.filter(function compare(str) {
       var app = appsSource.data[str];
