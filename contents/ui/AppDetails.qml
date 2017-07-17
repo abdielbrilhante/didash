@@ -15,6 +15,20 @@ Item {
     "entryPath": '/usr/share/applications/ranger.desktop'
   }
 
+  property bool isFavorite: favIndex >= 0
+  property int favIndex: -1
+
+  onAppChanged: {
+    var favs = rootWindow.favorites;
+    for (var i = 0; i < favs.length; i++) {
+      if ('/usr/share/applications/' + (favs[i]) == app.entryPath) {
+        favIndex = i;
+        return;
+      }
+    }
+    favIndex = -1;
+  }
+
   PlasmaCore.DataSource {
     id: pacmanSource
     engine: 'executable'
@@ -109,9 +123,23 @@ Item {
       onClicked: details.visible = false;
     }
     DetailsAction {
-      label: 'Pin'
-      iconSource: '\uf005'
-      onClicked: console.log('Fav toggle')
+      label: isFavorite ? 'Unpin' : 'Pin'
+      iconSource: isFavorite ? '\uf014' : '\uf067'
+
+      onClicked: {
+        var entry = app.entryPath.split('/').pop();
+        var favs = rootWindow.favorites;
+
+        if (details.isFavorite) {
+          favs.splice(favIndex, 1);
+          rootWindow.favorites = favs;
+        }
+        else {
+          favs.push(entry);
+          rootWindow.favorites = favs;
+        }
+        appChanged(app);
+      }
     }
     DetailsAction {
       label: 'Run'

@@ -26,15 +26,7 @@ PlasmaCore.Dialog {
   }
 
   property var apps: []
-
-  onSearchingChanged: {
-    if (searching) {
-      appGrid.model = sorted(filter(apps, searchField.text.toLowerCase()));
-    }
-    else {
-      appGrid.model = sorted(apps);
-    }
-  }
+  property var favorites: ['firefox.desktop', 'atom.desktop']
 
   function filter(arr, subs) {
     return arr.filter(function compare(str) {
@@ -57,6 +49,12 @@ PlasmaCore.Dialog {
     return arr.sort(function compare(a, b) {
       return appsSource.data[a].name.localeCompare(appsSource.data[b].name);
     });
+  }
+
+  function concatenate(a, b) {
+    return a.concat(b.filter(function (item) {
+      return a.indexOf(item) < 0;
+    }));
   }
 
   Item {
@@ -188,7 +186,7 @@ PlasmaCore.Dialog {
           left: parent.left
           right: parent.right
         }
-        model: apps ? apps : []
+        model: searching ? filter(concatenate(favorites, apps), searchField.text.toLowerCase()) : concatenate(favorites, apps)
       }
 
       AppDetails {
@@ -199,6 +197,7 @@ PlasmaCore.Dialog {
           // bottomMargin: parent.height/5
         }
         visible: false
+
       }
     }
   }
