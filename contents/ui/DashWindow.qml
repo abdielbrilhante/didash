@@ -15,13 +15,22 @@ PlasmaCore.Dialog {
   visible: false
   hideOnWindowDeactivate: true
 
+  function reset() {
+    searchField.text = '';
+    appDetails.visible = false;
+  }
+
   function toggle() {
     if (visible)
       hide();
     else
       show();
 
-    searchField.text = '';
+    reset();
+  }
+
+  onWindowDeactivated: {
+    reset();
   }
 
   property var apps: []
@@ -78,6 +87,10 @@ PlasmaCore.Dialog {
 
   Item {
     id: mainItem
+
+    Keys.onEscapePressed: {
+      rootWindow.toggle();
+    }
 
     property QtObject dimensions: plasmoid.configuration.isDash ? dashDimensions : menuDimensions
 
@@ -181,9 +194,7 @@ PlasmaCore.Dialog {
           }
         }
 
-        Keys.onEscapePressed: {
-          rootWindow.toggle();
-        }
+
 
         Keys.onDownPressed: {
           appGrid.setFocus(0, 0, 0);
