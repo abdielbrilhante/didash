@@ -14,8 +14,12 @@ MouseArea {
   onEntered: grid.currentIndex = index;
   onExited: grid.currentIndex = -1;
 
+  Keys.onDownPressed: {
+    root.setFocus(index + 1);
+  }
+
   Keys.onTabPressed: {
-    root.setFocus(index + 1)
+    root.setFocus(-1);
   }
 
   Kio.KRun {

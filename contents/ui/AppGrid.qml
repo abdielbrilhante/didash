@@ -12,8 +12,10 @@ MouseArea {
   property bool isDash: mainItem.dimensions.id == 'dash'
 
   function setFocus(index) {
-    if (index < 0 || index > grid.children.length) return;
-    grid.children[index].forceActiveFocus();
+    if (index < 0 || index > grid.children.length)
+      searchField.forceActiveFocus();
+    else
+      grid.children[index].forceActiveFocus();
   }
 
   PlasmaExtras.ScrollArea {
