@@ -174,7 +174,7 @@ PlasmaCore.Dialog {
         }
 
         Keys.onDownPressed: {
-          appGrid.setFocus(0);
+          appGrid.setFocus(0, 0, 0);
         }
       }
 

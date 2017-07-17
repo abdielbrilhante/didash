@@ -11,7 +11,14 @@ MouseArea {
   property int cellSize: mainItem.dimensions.cellSize
   property bool isDash: mainItem.dimensions.id == 'dash'
 
-  function setFocus(index) {
+  function setFocus(index, rowOffset, colOffset) {
+    if (rowOffset != 0) {
+      index = index + (rowOffset*grid.columns);
+    }
+    else if (colOffset != 0) {
+      index = index + (colOffset);
+    }
+
     if (index < 0 || index > grid.children.length)
       searchField.forceActiveFocus();
     else

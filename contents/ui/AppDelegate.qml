@@ -15,20 +15,30 @@ MouseArea {
   onExited: grid.currentIndex = -1;
 
   Keys.onDownPressed: {
-    root.setFocus(index + 1);
+    root.setFocus(index, 1, 0);
   }
 
-  Keys.onTabPressed: {
-    root.setFocus(-1);
+  Keys.onUpPressed: {
+    root.setFocus(index, -1, 0);
   }
+
+  Keys.onRightPressed: {
+    root.setFocus(index, 0, 1);
+  }
+
+  Keys.onLeftPressed: {
+    root.setFocus(index, 0, -1);
+  }
+
+  Keys.onReturnPressed: {
+    openApp();
+  }
+
+  onClicked: openApp();
 
   Kio.KRun {
     id: kRun
   }
-
-  Keys.onEnterPressed: openApp();
-
-  onClicked: openApp();
 
   function openApp() {
     kRun.openUrl(app.entryPath);
