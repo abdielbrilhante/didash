@@ -10,6 +10,7 @@ MouseArea {
   property var app
   property bool highlighted: activeFocus || grid.currentIndex === index
 
+  acceptedButtons: Qt.LeftButton | Qt.RightButton
   hoverEnabled: true
   onEntered: grid.currentIndex = index;
   onExited: grid.currentIndex = -1;
@@ -34,7 +35,13 @@ MouseArea {
     openApp();
   }
 
-  onClicked: openApp();
+  onClicked: {
+    if (mouse.button == Qt.RightButton) {
+      appDetails.app = app;
+      appDetails.visible = true;
+    }
+    else openApp();
+  }
 
   Kio.KRun {
     id: kRun

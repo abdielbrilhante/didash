@@ -87,7 +87,7 @@ PlasmaCore.Dialog {
 
       apps = sorted(appsSource.sources.filter(function check(key) {
         var app = appsSource.data[key];
-        return (app.isApp && app.display && app.iconName);
+        return (app.isApp && app.iconName);
       }));
     }
 
@@ -146,7 +146,7 @@ PlasmaCore.Dialog {
         id: searchField
 
         property bool isDash: mainItem.dimensions.id == 'dash'
-
+        visible: !appDetails.visible
         anchors {
           horizontalCenter: parent.horizontalCenter
         }
@@ -180,6 +180,7 @@ PlasmaCore.Dialog {
 
       AppGrid {
         id: appGrid
+        visible: !appDetails.visible
         anchors {
           top: searchField.bottom
           topMargin: mainItem.dimensions.searchBoxSpacing
@@ -188,6 +189,20 @@ PlasmaCore.Dialog {
           right: parent.right
         }
         model: apps ? apps : []
+      }
+
+      AppDetails {
+        id: appDetails
+        anchors {
+          fill: parent
+          // topMargin: parent.height/5
+          // bottomMargin: parent.height/5
+        }
+        visible: false
+        MouseArea {
+          anchors.fill: parent
+          onClicked: parent.visible = false
+        }
       }
     }
   }
