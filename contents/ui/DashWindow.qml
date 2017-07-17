@@ -13,7 +13,6 @@ PlasmaCore.Dialog {
   x: 0
 
   visible: false
-  // backgroundHints: PlasmaCore.Types.NoBackground
   hideOnWindowDeactivate: true
 
   function toggle() {
@@ -26,7 +25,18 @@ PlasmaCore.Dialog {
   }
 
   property var apps: []
-  property var favorites: ['firefox.desktop', 'atom.desktop']
+  property var favorites: []
+
+  Component.onCompleted: {
+    for (var i = 0; i < plasmoid.configuration.favorites.length; i++) {
+      favorites.push(plasmoid.configuration.favorites[i]);
+    }
+    console.log(favorites);
+  }
+
+  Component.onDestruction: {
+    plasmoid.configuration.favorites = favorites;
+  }
 
   function filter(arr, subs) {
     return arr.filter(function compare(str) {
@@ -52,9 +62,18 @@ PlasmaCore.Dialog {
   }
 
   function concatenate(a, b) {
-    return a.concat(b.filter(function (item) {
+    if (!a.length && !b.length) return [];
+    if (!a.length) return b;
+    if (!b.length) return a;
+
+    var f = b.filter(function check(item) {
       return a.indexOf(item) < 0;
-    }));
+    });
+
+    var c = a.concat(f);
+    console.log(c.length, f.length, plasmoid.configuration.favorites.length, b.length)
+
+    return c;
   }
 
   Item {
@@ -87,11 +106,6 @@ PlasmaCore.Dialog {
         var app = appsSource.data[key];
         return (app.isApp && app.iconName);
       }));
-    }
-
-    Rectangle {
-      // anchors.fill: parent
-      color: theme.backgroundColor
     }
 
     Background {
@@ -193,11 +207,8 @@ PlasmaCore.Dialog {
         id: appDetails
         anchors {
           fill: parent
-          // topMargin: parent.height/5
-          // bottomMargin: parent.height/5
         }
         visible: false
-
       }
     }
   }

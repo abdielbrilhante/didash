@@ -11,7 +11,7 @@
       <default>false</default>
     </entry>
     <entry name="favorites" type="StringList">
-        <default></default>
+      <label>List of favorites.</label>
     </entry>
   </group>
 </kcfg>
