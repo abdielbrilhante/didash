@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.kio 1.0 as Kio
 
 Item {
   id: details
@@ -27,7 +28,8 @@ Item {
     }
 
     onNewData: {
-      currentPackage = data.stdout.split('is owned by')[1];
+      if (data && data.stdout)
+        currentPackage = data.stdout.split('is owned by')[1];
     }
   }
 
@@ -44,7 +46,7 @@ Item {
     anchors {
       horizontalCenter: parent.horizontalCenter
       top: parent.top
-      topMargin: 24
+      topMargin: 36
     }
   }
 
@@ -67,7 +69,6 @@ Item {
       topMargin: 60
     }
 
-    // single Text, width for dash, actions
     Text {
       property string dName: '<b>Name</b><br>' + app.name
       property string dComment: '<b>Description</b><br>' + (app.comment ? app.comment : 'None')
@@ -80,6 +81,47 @@ Item {
       color: theme.textColor
       wrapMode: Text.WordWrap
       lineHeight: 1.25
+    }
+  }
+
+  Kio.KRun {
+    id: kRun
+  }
+
+  function openApp() {
+    kRun.openUrl(app.entryPath);
+    rootWindow.toggle();
+  }
+
+  Row {
+    id: actions
+
+    anchors {
+      bottom: parent.bottom
+      bottomMargin: 12
+    }
+
+    width: parent.width
+
+    DetailsAction {
+      label: 'Go back'
+      iconSource: '\uf060'
+      onClicked: details.visible = false;
+    }
+    DetailsAction {
+      label: 'Pin'
+      iconSource: '\uf005'
+      onClicked: console.log('Fav toggle')
+    }
+    DetailsAction {
+      label: 'Run'
+      iconSource: '\uf085'
+      onClicked: openApp();
+    }
+    DetailsAction {
+      label: plasmoid.configuration.isDash ? 'Menu' : 'Dash'
+      iconSource: plasmoid.configuration.isDash ? '\uf00b' : '\uf00a'
+      onClicked: plasmoid.configuration.isDash = !plasmoid.configuration.isDash
     }
   }
 }

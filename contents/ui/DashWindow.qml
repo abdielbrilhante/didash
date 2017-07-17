@@ -199,10 +199,6 @@ PlasmaCore.Dialog {
           // bottomMargin: parent.height/5
         }
         visible: false
-        MouseArea {
-          anchors.fill: parent
-          onClicked: parent.visible = false
-        }
       }
     }
   }
