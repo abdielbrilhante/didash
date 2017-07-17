@@ -85,7 +85,10 @@ PlasmaCore.Dialog {
         appsSource.sourceAdded(appsSource.sources[i]);
       }
 
-      apps = sorted(appsSource.sources);
+      apps = sorted(appsSource.sources.filter(function check(key) {
+        var app = appsSource.data[key];
+        return (app.isApp && app.display && app.iconName);
+      }));
     }
 
     Rectangle {

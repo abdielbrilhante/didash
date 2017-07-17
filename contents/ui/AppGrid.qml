@@ -37,7 +37,7 @@ MouseArea {
           id: appDelegate
           width: cellSize; height: mainItem.dimensions.cellHeight
           app: appsSource.data[model.modelData]
-          visible: app.isApp && app.display && app.iconName // TODO: filter in apps array
+          // visible: app.isApp && app.display && app.iconName // TODO: filter in apps array
         }
       }
     }
