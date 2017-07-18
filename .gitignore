@@ -20,6 +20,7 @@
 *.qbs.user.*
 *.moc
 *.qmlc
+*.jsc
 moc_*.cpp
 moc_*.h
 qrc_*.cpp
