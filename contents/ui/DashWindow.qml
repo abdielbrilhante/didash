@@ -14,6 +14,7 @@ PlasmaCore.Dialog {
 
   visible: false
   hideOnWindowDeactivate: true
+  backgroundHints: PlasmaCore.Types.NoBackground
 
   function reset() {
     searchField.text = '';
@@ -117,14 +118,30 @@ PlasmaCore.Dialog {
 
       apps = sorted(appsSource.sources.filter(function check(key) {
         var app = appsSource.data[key];
-        return (app.isApp && app.iconName);
+        return (app.isApp && app.display && app.iconName);
       }));
     }
 
-    Background {
+    Rectangle {
+      id: opaqueBackground
+      color: theme.backgroundColor
+      anchors.fill: parent
+      opacity: 0.9
+    }
+
+    Rectangle {
       id: background
       anchors.fill: parent
-      visible: false
+      color: appDetails.background
+      opacity: appDetails.visible ? 1.0 : 0.0
+
+      Behavior on opacity {
+        NumberAnimation { duration: 250 }
+      }
+
+      Behavior on color {
+        ColorAnimation { duration: 200 }
+      }
     }
 
     QtObject {

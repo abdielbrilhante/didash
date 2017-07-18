@@ -2,6 +2,8 @@ import QtQuick 2.7
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.kio 1.0 as Kio
+import QtGraphicalEffects 1.0
+import '../code/thief.js' as Js
 
 Item {
   id: details
@@ -47,9 +49,31 @@ Item {
     }
   }
 
+  Image {
+    id: qmlImage
+    anchors.fill: icon
+    visible: false
+  }
+
+  Canvas {
+    id: qmlCanvas
+    anchors.fill: icon
+  }
+
+  property color background: theme.backgroundColor
+
   onVisibleChanged: {
-    if (visible) {
-      pacmanSource.sourceAdded('pacman -Qo ' + app.entryPath)
+    if (visible && qmlCanvas.available) {
+      opacity: 0.001
+      pacmanSource.sourceAdded('pacman -Qo ' + app.entryPath);
+
+      icon.grabToImage(function(result) {
+        qmlImage.source = result.url;
+        var colorThief = new Js.ColorThief();
+        var arr = colorThief.getColor(qmlImage);
+        background = Qt.rgba(arr[0]/256, arr[1]/256, arr[2]/256);
+        opacity: 1
+      }, Qt.size(50, 50));
     }
   }
 
@@ -62,6 +86,12 @@ Item {
       top: parent.top
       topMargin: 36
     }
+  }
+
+  DropShadow {
+    id: shadow
+    anchors.fill: icon
+    source: icon
   }
 
   Text {
