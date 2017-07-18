@@ -44,7 +44,9 @@ Item {
     }
 
     onNewData: {
-      if (data && data.stdout)
+      if (data.stderr)
+        currentPackage = 'Unavailable';
+      else if (data.stdout)
         currentPackage = data.stdout.split('is owned by')[1];
     }
   }
@@ -61,6 +63,7 @@ Item {
   }
 
   property color background: theme.backgroundColor
+  property bool colorThiefFinished: false
 
   onVisibleChanged: {
     if (visible && qmlCanvas.available) {
@@ -71,7 +74,11 @@ Item {
         var colorThief = new Js.ColorThief();
         var arr = colorThief.getColor(qmlImage, 2);
         background = Qt.rgba(arr[0]/256, arr[1]/256, arr[2]/256);
+        colorThiefFinished = true;
       });
+    }
+    else {
+      colorThiefFinished = false;
     }
   }
 

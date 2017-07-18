@@ -15,6 +15,7 @@ PlasmaCore.Dialog {
   visible: false
   hideOnWindowDeactivate: true
   backgroundHints: PlasmaCore.Types.NoBackground
+  flags: plasmoid.configuration.isDash ? Qt.Window : Qt.WindowStaysOnTopHint
 
   function reset() {
     searchField.text = '';
@@ -144,7 +145,7 @@ PlasmaCore.Dialog {
       id: background
       anchors.fill: parent
       color: appDetails.background
-      opacity: appDetails.visible ? 1.0 : 0.0
+      opacity: appDetails.colorThiefFinished ? 1.0 : 0.0
 
       Behavior on opacity {
         NumberAnimation { duration: 300 }
