@@ -8,7 +8,7 @@ MouseArea {
   id: root
 
   property alias model: repeater.model
-  property int cellSize: mainItem.dimensions.cellSize
+  property int cellSize: isDash ? mainItem.dimensions.cellSize : width
   property bool isDash: mainItem.dimensions.id == 'dash'
 
   function setFocus(index, rowOffset, colOffset) {
