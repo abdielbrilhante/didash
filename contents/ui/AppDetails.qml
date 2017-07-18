@@ -73,7 +73,7 @@ Item {
         var arr = colorThief.getColor(qmlImage);
         background = Qt.rgba(arr[0]/256, arr[1]/256, arr[2]/256);
         opacity: 1
-      }, Qt.size(50, 50));
+      });
     }
   }
 
@@ -92,12 +92,14 @@ Item {
     id: shadow
     anchors.fill: icon
     source: icon
+    radius: 8
+    samples: 17
   }
 
   Text {
     id: name
     text: app.name
-    color: theme.textColor
+    color: mainItem.globalTextColor
     font.pointSize: 14
     font.bold: true
     anchors {
@@ -122,7 +124,7 @@ Item {
 
       width: details.width
       text: dName + '<br><br>' + dComment + '<br><br>' + dCat + '<br><br>' + dDisplay + '<br><br>' + dPackage
-      color: theme.textColor
+      color: mainItem.globalTextColor
       wrapMode: Text.WordWrap
       lineHeight: 1.25
     }

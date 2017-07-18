@@ -94,6 +94,19 @@ PlasmaCore.Dialog {
     }
 
     property QtObject dimensions: plasmoid.configuration.isDash ? dashDimensions : menuDimensions
+    property color globalTextColor: {
+      if (!appDetails.visible) return theme.textColor;
+
+      var bColor = appDetails.background;
+
+      var tLum = 0.2126*theme.textColor.r + 0.7152*theme.textColor.g + 0.0722*theme.textColor.b + 0.05;
+      var bLum = 0.2126*bColor.r + 0.7152*bColor.g + 0.0722*bColor.b + 0.05;
+
+      var contrast = tLum > bLum ? (tLum/bLum) : (bLum/tLum);
+
+      if (contrast < 1.5) return theme.backgroundColor;
+      return theme.textColor;
+    }
 
     width: dimensions.width
     height: dimensions.height
@@ -136,11 +149,11 @@ PlasmaCore.Dialog {
       opacity: appDetails.visible ? 1.0 : 0.0
 
       Behavior on opacity {
-        NumberAnimation { duration: 250 }
+        NumberAnimation { duration: 300 }
       }
 
       Behavior on color {
-        ColorAnimation { duration: 200 }
+        ColorAnimation { duration: 150 }
       }
     }
 

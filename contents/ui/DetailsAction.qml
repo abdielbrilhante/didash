@@ -15,14 +15,14 @@ MouseArea {
     id: icon
     font.pointSize: 20
     anchors.horizontalCenter: parent.horizontalCenter
-    color: theme.textColor
+    color: mainItem.globalTextColor
   }
 
   Text {
     id: iconLabel
     text: 'This is label'
     width: parent.width
-    color: theme.textColor
+    color: mainItem.globalTextColor
     horizontalAlignment: Text.AlignHCenter
     font.pointSize: 9
     font.weight: hovered ? Font.Bold : Font.Normal
