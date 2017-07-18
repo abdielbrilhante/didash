@@ -246,8 +246,10 @@ PlasmaCore.Dialog {
       AppDetails {
         id: appDetails
         anchors {
-          fill: parent
+          centerIn: parent
         }
+        height: mainItem.height
+        width: Math.min(uiElements.width, 300)
         visible: false
       }
     }
