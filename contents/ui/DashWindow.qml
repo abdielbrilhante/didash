@@ -41,7 +41,6 @@ PlasmaCore.Dialog {
     for (var i = 0; i < plasmoid.configuration.favorites.length; i++) {
       favorites.push(plasmoid.configuration.favorites[i]);
     }
-    console.log(favorites);
   }
 
   Component.onDestruction: {
@@ -81,7 +80,6 @@ PlasmaCore.Dialog {
     });
 
     var c = a.concat(f);
-    console.log(c.length, f.length, plasmoid.configuration.favorites.length, b.length)
 
     return c;
   }
