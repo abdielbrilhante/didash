@@ -9,7 +9,7 @@ Item {
   id: details
 
   property var app: {
-    "iconName": "firefox",
+    "iconName": "",
     "name": "",
     "description": "",
     "terminal": false,
@@ -65,6 +65,7 @@ Item {
   property color background: theme.backgroundColor
 
   function ready() {
+    console.log(app.name)
     pacmanSource.sourceAdded('pacman -Qo ' + app.entryPath);
 
     if (qmlCanvas.available) {
@@ -81,6 +82,7 @@ Item {
   PlasmaCore.IconItem {
     id: icon
     source: app.iconName
+
     width: units.iconSizes.enormous*1.2; height: width
     anchors {
       horizontalCenter: parent.horizontalCenter
@@ -93,8 +95,9 @@ Item {
     id: shadow
     anchors.fill: icon
     source: icon
-    radius: 8
-    samples: 17
+    radius: 24
+    samples: 49
+    color: "#88000000"
   }
 
   Text {
