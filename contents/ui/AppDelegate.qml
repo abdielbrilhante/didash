@@ -38,7 +38,7 @@ MouseArea {
   onClicked: {
     if (mouse.button == Qt.RightButton) {
       appDetails.app = app;
-      appDetails.visible = true;
+      appDetails.ready();
     }
     else openApp();
   }

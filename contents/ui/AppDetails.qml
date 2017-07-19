@@ -63,22 +63,18 @@ Item {
   }
 
   property color background: theme.backgroundColor
-  property bool colorThiefFinished: false
 
-  onVisibleChanged: {
-    if (visible && qmlCanvas.available) {
-      pacmanSource.sourceAdded('pacman -Qo ' + app.entryPath);
+  function ready() {
+    pacmanSource.sourceAdded('pacman -Qo ' + app.entryPath);
 
+    if (qmlCanvas.available) {
       icon.grabToImage(function(result) {
         qmlImage.source = result.url;
         var colorThief = new Js.ColorThief();
         var arr = colorThief.getColor(qmlImage, 2);
         background = Qt.rgba(arr[0]/256, arr[1]/256, arr[2]/256);
-        colorThiefFinished = true;
+        visible = true;
       });
-    }
-    else {
-      colorThiefFinished = false;
     }
   }
 

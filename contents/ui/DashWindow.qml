@@ -145,7 +145,7 @@ PlasmaCore.Dialog {
       id: background
       anchors.fill: parent
       color: appDetails.background
-      opacity: appDetails.colorThiefFinished ? 1.0 : 0.0
+      opacity: appDetails.visible ? 1.0 : 0.0
 
       Behavior on opacity {
         NumberAnimation { duration: 300 }
