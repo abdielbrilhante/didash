@@ -20,6 +20,7 @@ PlasmaCore.Dialog {
   function reset() {
     searchField.text = '';
     appDetails.visible = false;
+    searchField.focus = true;
   }
 
   function toggle() {
@@ -138,7 +139,6 @@ PlasmaCore.Dialog {
       id: opaqueBackground
       color: theme.backgroundColor
       anchors.fill: parent
-      opacity: 0.9
     }
 
     Rectangle {
