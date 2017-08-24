@@ -10,9 +10,10 @@ MouseArea {
   property QtObject window: null
 
   Layout.fillHeight: true
-  Layout.preferredWidth: label.width + 32
+  Layout.preferredWidth: label.implicitWidth + 32
   Layout.minimumWidth: Layout.preferredWidth
   Layout.maximumWidth: Layout.preferredWidth
+  Layout.alignment: Qt.AlignHCenter
 
   property bool hovered: false
   hoverEnabled: true
@@ -20,20 +21,27 @@ MouseArea {
   onExited: hovered = false;
 
   Rectangle {
-    anchors.fill: parent
+    height: parent.height
+    width: 1
     color: theme.textColor
-    visible: hovered
+    x: label.width + 1
+    opacity: 0.1
   }
 
   PlasmaComponents.Label {
     id: label
-    text: 'Apps'
-    anchors.centerIn: parent
-    color: hovered ? theme.backgroundColor : theme.textColor
+    text: window.visible ? '\uf111' : '\uf10c'
+    anchors {
+      fill: parent
+      leftMargin: 0
+    }
+    horizontalAlignment: Text.AlignHCenter
+    verticalAlignment: Text.AlignVCenter
+    color: hovered ? theme.highlightColor : theme.textColor
   }
 
   Rectangle {
-    width: 1
+    width: 0
     height: 16
     color: theme.textColor
     visible: !hovered
