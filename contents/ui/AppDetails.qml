@@ -122,7 +122,7 @@ Item {
     Text {
       property string dName: '<b>Name</b><br>' + app.name
       property string dComment: '<b>Description</b><br>' + (app.comment ? app.comment : 'None')
-      property string dCat: '<b>Categories</b><br>' + app.categories
+      property string dCat: '<b>Categories</b><br>' + app.categories.join(' | ')
       property string dDisplay: '<b>Display</b><br>' + (app.display ? 'Yes' : 'No')
       property string dPackage: '<b>Package</b><br>' + pacmanSource.currentPackage
 
