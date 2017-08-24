@@ -175,10 +175,10 @@ PlasmaCore.Dialog {
       id: dashDimensions
       property string id: 'dash'
       property int searchBoxSpacing: 68
-      property int topMargin: mainItem.height/5
-      property int bottomMargin: mainItem.height/5
-      property int leftMargin: mainItem.width/5
-      property int rightMargin: mainItem.width/5
+      property int topMargin: mainItem.height/10 + 6
+      property int bottomMargin: mainItem.height/10 + 6
+      property int leftMargin: mainItem.width/10
+      property int rightMargin: mainItem.width/10
       property int width: Screen.desktopAvailableWidth
       property int height: Screen.desktopAvailableHeight
       property int cellSize: units.iconSizes.huge * 1.5
