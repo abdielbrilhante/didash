@@ -9,8 +9,10 @@ MouseArea {
 
   property QtObject window: null
 
+  // Layout.fillWidth: true
+  // Layout.preferredHeight: label.implicitWidth + 32
+  Layout.preferredWidth: parent.height + 4
   Layout.fillHeight: true
-  Layout.preferredWidth: label.implicitWidth + 32
   Layout.minimumWidth: Layout.preferredWidth
   Layout.maximumWidth: Layout.preferredWidth
   Layout.alignment: Qt.AlignHCenter
@@ -20,24 +22,11 @@ MouseArea {
   onEntered: hovered = true;
   onExited: hovered = false;
 
-  Rectangle {
-    height: parent.height
-    width: 1
-    color: theme.textColor
-    x: label.width + 1
-    opacity: 0.1
-  }
-
   PlasmaComponents.Label {
-    id: label
-    text: window.visible ? '\uf111' : '\uf10c'
-    anchors {
-      fill: parent
-      leftMargin: 0
-    }
+    text: '\uf0c9'
+    anchors.fill: parent
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
-    color: hovered ? theme.highlightColor : theme.textColor
   }
 
   Rectangle {
